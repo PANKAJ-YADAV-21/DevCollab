@@ -1,0 +1,24 @@
+{
+  "name": "devcollab-backend",
+  "version": "0.1.0",
+  "description": "Backend API for DevCollab - Developer Collaboration Platform",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test:audit": "node test_audit.js",
+    "test:phase5": "node test_phase5_tasks.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^8.9.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}

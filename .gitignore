@@ -1,0 +1,41 @@
+# Dependencies
+node_modules/
+**/node_modules/
+.pnp
+.pnp.js
+
+# Production builds
+dist/
+**/dist/
+build/
+**/build/
+
+# Environment files and local secrets
+.env
+.env.*
+**/.env
+**/.env.*
+*.env
+
+# Explicitly preserve template example files
+!.env.example
+!**/.env.example
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Editor & OS files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
