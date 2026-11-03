@@ -1,5 +1,7 @@
 # DevCollab – Developer Collaboration Platform
 
+> **Official Repository**: [https://github.com/PANKAJ-YADAV-21/DevCollab](https://github.com/PANKAJ-YADAV-21/DevCollab)
+
 DevCollab is a full-stack developer collaboration platform designed for software teams to manage organizations, projects, and sprint workflows with real-time interactive Kanban boards and strict role-based access control.
 
 ---
