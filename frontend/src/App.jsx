@@ -108,9 +108,12 @@ export default function App() {
       setHealthData(response.data);
     } catch (err) {
       console.error('Health check failed:', err);
+      if (err.response?.data) {
+        setHealthData(err.response.data);
+      }
       setErrorHealth(
         err.response?.data?.message || 
-        'Could not reach backend API at localhost:5001. Ensure the backend server is running.'
+        'Could not reach backend API server. Ensure the backend service is running.'
       );
     } finally {
       setLoadingHealth(false);
@@ -377,7 +380,7 @@ export default function App() {
                     </div>
                     <div>
                       <h2 className="text-lg font-semibold text-white">Full-Stack Connectivity Test</h2>
-                      <p className="text-xs text-slate-400">Verifying live communication between React (Port 5173) and Express (Port 5001)</p>
+                      <p className="text-xs text-slate-400">Verifying live communication between React Frontend and Express Backend API</p>
                     </div>
                   </div>
 

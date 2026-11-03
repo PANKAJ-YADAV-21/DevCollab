@@ -12,11 +12,17 @@ export const getHealthStatus = (req, res) => {
     3: 'disconnecting',
   };
 
-  const dbState = dbStatusMap[mongoose.connection.readyState] || 'unknown';
+  const readyState = mongoose.connection.readyState;
+  const dbState = dbStatusMap[readyState] || 'unknown';
+  const isDbConnected = readyState === 1;
 
-  return res.status(200).json({
-    status: 'OK',
-    message: 'DevCollab API server is running smoothly',
+  const statusCode = isDbConnected ? 200 : 503;
+
+  return res.status(statusCode).json({
+    status: isDbConnected ? 'OK' : 'DEGRADED',
+    message: isDbConnected
+      ? 'DevCollab API server is running smoothly'
+      : 'DevCollab API server is running but database is not connected',
     service: 'devcollab-api',
     version: '0.1.0',
     uptime: process.uptime(),
@@ -24,7 +30,8 @@ export const getHealthStatus = (req, res) => {
     environment: process.env.NODE_ENV || 'development',
     database: {
       status: dbState,
-      readyState: mongoose.connection.readyState,
+      readyState: readyState,
+      healthy: isDbConnected,
     },
   });
 };

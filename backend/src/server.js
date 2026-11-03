@@ -13,12 +13,29 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5001;
-const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:5173';
+
+const isProduction = process.env.NODE_ENV === 'production';
+
+// Normalize CLIENT_URL: strip trailing slashes and support comma-separated values
+const rawClientUrl = process.env.CLIENT_URL || (isProduction ? '' : 'http://localhost:5173');
+const configuredOrigins = rawClientUrl
+  .split(',')
+  .map((url) => url.trim().replace(/\/+$/, ''))
+  .filter(Boolean);
+
+// Local development origins allowed ONLY when NOT in production
+const localDevOrigins = ['http://localhost:5173', 'http://127.0.0.1:5173'];
+
+// In production: allow ONLY the exact origins configured through CLIENT_URL
+// In development: include configured origins plus local development origins
+const allowedOrigins = Array.from(
+  new Set(isProduction ? configuredOrigins : [...configuredOrigins, ...localDevOrigins])
+);
 
 // Middleware
 app.use(
   cors({
-    origin: [CLIENT_URL, 'http://localhost:5173', 'http://127.0.0.1:5173'],
+    origin: allowedOrigins,
     credentials: true,
   })
 );
